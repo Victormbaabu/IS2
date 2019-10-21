@@ -4,7 +4,22 @@
 			require "dbconn.php";
 
 			// $sql = "SELECT project.project_id, project.project_name, project.project_duration, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id FROM project JOIN project_description ON project.project_id = project_description.project_id ORDER BY project_description.project_id DESC";
-
+			$sql = 
+			"SELECT 
+				project_application.project_pitch, project_application.application_id, project_application.project_id, project_application.researcher_id,
+				researcher.r_fname, researcher.r_lname, project.project_name 
+			FROM 
+			 	project_application
+			JOIN 
+				researcher 
+			ON 
+				project_application.researcher_id = researcher.researcher_id 
+			JOIN 
+				project 
+			ON 
+				project_application.project_id = project.project_id";
+			
+			
 			$result = $conn->query($sql);
     ?>
 <head>
@@ -41,10 +56,11 @@
     <table class="table table-inverse" border="1">
       <thead>
     	<tr>
-    		<th>application id</th>
-    		<th>researcher id</th>
-    		<th>project name</th>
-    		<th>pitch</th>
+    		<th>APPLICATION ID</th>
+    		<th>RESEARCHER</th>
+    		<th>PROJECT</th>
+    		<th>PITCH</th>
+			<th>ACTION</th>
     		
     		
     	</tr>
@@ -53,18 +69,19 @@
     	<?php
 
 	    	$application_id = " ";
-	    	$researcher_id = " ";
+	    	$researcher_name = " ";
 			$project_name = " ";	
 			$pitch = " ";
 			
-			  if ($result->num_rows >0) {
+			//   if ($result->num_rows >0) {
 			  	# output data of each row
-
+			if ($result) {
 			  	while ($row = $result->fetch_assoc()) {
-			  		$application_id = $row['project_id'];
-			  		$researcher_id = $row['researcher_id'];
+			  		$application_id = $row['application_id'];
+					$researcher_fname = $row['r_fname'];
+					$researcher_lname = $row['r_lname'];
 			  		$project_name = $row['project_name'];
-			  		$pitch = $row['pitch'];
+			  		$pitch = $row['project_pitch'];
 			  		
 
 			  		?>
@@ -72,13 +89,13 @@
 			  	  <tbody>
 			  		<tr>
 			  		<td><?php echo $application_id ?></td>
-			  		<td><?php echo $researcher_id ?></td>
+			  		<td><?php echo $researcher_fname ." ". $researcher_lname ?></td>
 			  		<td><?php echo $project_name ?></td>
 			  		<td><?php echo $pitch ?></td>
 			  		
 			  		
 			  		<td><a onclick="return confirm('assign project')" href='assign.php?id=<?php echo $row["project_id"]; ?>'>Assign</a></td>
-			  		s
+			  		
 
 			  	
 			  		</tr>
@@ -86,6 +103,7 @@
 			  <?php
 			  	}
 			  }else{
+				trigger_error('Invalid query: ' . $conn->error);
 			  	echo "0 results";
 			  }
 
