@@ -101,8 +101,7 @@ if ($loggedin == 1){
 			  		<td><?php echo $project_name ?></td>
 			  		<td><?php echo $pitch ?></td>
 			  				  		
-			  		<td><a onclick="return confirm('assign project')" href='assign.php?id=<?php echo $row["project_id"]; ?>'>Assign</a></td>
-
+			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>'>Assign</a></td>
 			  		</tr>
 			  	  </tbody>
 			  <?php

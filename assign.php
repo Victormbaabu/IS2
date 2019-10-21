@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
    <?php
-			require "dbconn.php";
+            require "dbconn.php";
+            
+            $project_id = $_GET['project_id'];
+            $researcher_id = $_GET['researcher_id'];
+            echo "PROJECT ID ASSIGNED: ".$project_id;
+            echo "RESEARCHER ID ASSIGNED: ".$researcher_id;
 
 			$sql = 
 			"SELECT 
@@ -91,7 +96,7 @@
 			  		<td><?php echo $project_name ?></td>
 			  		<td><?php echo $pitch ?></td>
 			  				  		
-			  		<td><a onclick="return confirm('assign project')" href='assign.php?id=<?php echo $row["project_id"]; ?>'>Assign</a></td>
+			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>'>Assign</a></td>
 
 			  		</tr>
 			  	  </tbody>
