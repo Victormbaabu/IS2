@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html>
+   <?php
+			require "dbconn.php";
 
-<?php
-
-session_start();
-require('dbconn.php');
-// $id = $_GET['id'];
-$loggedin = $_SESSION['role_id'];
-
-if ($loggedin == 1){
-
-			// require "dbconn.php";
-
-			// $sql = "SELECT project.project_id, project.project_name, project.project_duration, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id FROM project JOIN project_description ON project.project_id = project_description.project_id ORDER BY project_description.project_id DESC";
 			$sql = 
 			"SELECT 
 				project_application.project_pitch, project_application.application_id, project_application.project_id, project_application.researcher_id,
@@ -113,14 +103,6 @@ if ($loggedin == 1){
 			  }
 
     	?>
-
-
-		<?php
-}
-else{
-echo "Unauthorized access";
-}
-		?>
     </table>
 	    	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

@@ -25,6 +25,7 @@
 			 $dbr_email = $row['r_email'];
 			 $dbr_password = $row['r_password'];
 			 $dbproject_id = $row['project_id'];
+			 $role_id = $row['role_id'];
 		}
 
 
@@ -35,6 +36,7 @@
 	$_SESSION['r_email']= $dbr_email;
 	$_SESSION['r_password']= $dbr_password;
 	$_SESSION['project_id']= $dbproject_id;
+	$_SESSION['role_id']= $role_id;
 
 	if($r_email==$dbr_email && $r_password==$dbr_password){
 		echo "Youre in!!";
