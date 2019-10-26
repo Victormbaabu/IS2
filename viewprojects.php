@@ -41,13 +41,13 @@
     <table class="table table-inverse" border="1">
       <thead>
     	<tr>
-    		<th>project id</th>
-    		<th>project name</th>
-    		<th>project duration</th>
-    		<th>description id</th>
-    		<th>project description</th>
-    		<th>project attachment</th>
-    		
+    		<th>PROJECT ID</th>
+    		<th>PROJECT NAME</th>
+    		<th>PROJECT DURATION</th>
+    		<th>PROJECT DESCRIPTION</th>
+    		<th>PROJECT REQUIREMENTS</th>
+			<th>DELETE</th>
+    		<th>UPDATE</th>
     	</tr>
       </thead>
 
@@ -78,9 +78,8 @@
 			  		<td><?php echo $projo_id ?></td>
 			  		<td><?php echo $projo_name ?></td>
 			  		<td><?php echo $projo_duration ?></td>
-			  		<td><?php echo $des_id ?></td>
 			  		<td><?php echo $project_description ?></td>
-			  		<td><?php echo $project_attachment ?></td>
+			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank">READ REQUIREMENTS</a></td>
 			  		
 			  		<td><a onclick="return confirm('delete project')" href='delete.php?id=<?php echo $row["project_id"]; ?>'>Delete</a></td>
 			  		<td><a onclick="return confirm('update project')" href='update1.php?id=<?php echo $row["project_id"]; ?>'>Update</a></td>

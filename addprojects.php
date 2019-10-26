@@ -3,47 +3,38 @@ include ("dbconn.php");
 if (isset($_POST['submit'])){
   
   $project_name=$_POST["project_name"];
+  $new_project_name = strtoupper($project_name);
   $project_duration=$_POST["project_duration"];
   $p_description=$_POST["p_description"];
-  $p_attachment=$_POST["p_attachment"];
-  $project_id = " ";
-  
- $sql = "INSERT INTO project (project_name, project_duration)
-        VALUES ('$project_name', '$project_duration')";
+//   $p_attachment=$_POST["p_attachment"];
+  	$project_id = " ";
 
-if ($conn->query($sql) === TRUE) {
-    $last_id = $conn->insert_id;
-    $sql2 = "INSERT INTO project_description (p_description, p_attachment, project_id)
-        VALUES ('$p_description', '$p_attachment', $last_id)";
-    if ($conn->query($sql) && $conn->query($sql2)) {
-	   echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Project added succesfully.</div></div></div>");
-	}
-	else{
-		echo ("Project failed to add.". $conn->error);
-	}
+  	$p_attachment = rand(1000,100000)."-".$_FILES['file']['name'];
 
+	$p_attachment_loc = $_FILES['file']['tmp_name'];
+	$new_file_name = strtolower($p_attachment);
+	$final_file=str_replace(' ','-',$new_file_name);
+ 	$folder="projectsfolder/";
+	if(move_uploaded_file($p_attachment_loc,$folder.$final_file))
+		{
+			$sql = "INSERT INTO project (project_name, project_duration)
+					VALUES ('$new_project_name', '$project_duration')";
+
+			if ($conn->query($sql) === TRUE) {
+				$last_id = $conn->insert_id;
+				$sql2 = "INSERT INTO project_description (p_description, p_attachment, project_id)
+					VALUES ('$p_description', '$final_file', $last_id)";
+				if ($conn->query($sql) && $conn->query($sql2)) 
+				{
+				echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Project added succesfully.</div></div></div>");
+				}
+				else{
+					echo ("Project failed to add.". $conn->error);
+				}
+			}
+		}
 }
 
- // $project_id = "SELECT MAX(project_id) from project";
-
-
-//  $dbproject_id  = mysqli_query($conn, "SELECT  MAX(project_id) FROM project") or die("failed to query database". mysqli_error($conn));
-
-//  if ($dbproject_id){
-//  	if (mysqli_num_rows($dbproject_id) >0){
-//  		while($row = mysqli_fetch_array($dbproject_id)) {
-// 		 //db data selection
-// 			 $project_id = $row['project_id'];
-// 		}
-// 	}
-// }
-
-// session_start();
-// $_SESSION['project_id']= $project_id;
-
- 
-   
-}
 ?>
 
 
@@ -77,7 +68,7 @@ if ($conn->query($sql) === TRUE) {
 			    	<h3 class="panel-title">Add new project</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form"  method="POST">
+			    	<form accept-charset="UTF-8" role="form"  method="POST" enctype="multipart/form-data">
                     <fieldset>
 			    	  	<!-- <div class="form-group">
 			    		    <input class="form-control" placeholder="Project id" name="project_id" type="text" required>
@@ -93,9 +84,13 @@ if ($conn->query($sql) === TRUE) {
 			    		<div class="form-group">
 			    			<input class="form-control" placeholder="Project description" name="p_description" type="text" value="" required>
 			    		</div>
-			    		<div class="form-group">
-			    		    <input class="form-control" placeholder="Project attachment" name="p_attachment" type="text" >
+						<div class="form-group">
+						  Upload Project Requirements File:<br>
+    						<input class="form-control" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
 			    		</div>
+			    		<!-- <div class="form-group">
+			    		    <input class="form-control" placeholder="Project attachment" name="p_attachment" type="text" >
+			    		</div> -->
 			    		
 			    		
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Add Project" style="background: green;">

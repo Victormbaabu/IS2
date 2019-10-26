@@ -73,7 +73,7 @@
     	<?php
 
 	    	$application_id = " ";
-	    	$researcher_name = " ";
+	    	$researcher_name = " "; 
 			$project_name = " ";	
 			$pitch = " ";
 			

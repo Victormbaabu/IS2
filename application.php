@@ -39,17 +39,25 @@ while($row=$selectedproject->fetch_assoc()){
 
 if (isset($_POST['submit'])) {
 		   
-            $projo_pitch=$_POST["project_pitch"];
-            
-			$query = "INSERT INTO project_application (researcher_id, project_id, project_pitch) VALUES ('$loggedin','$id','$projo_pitch')";
-			// $query2 = "UPDATE project_description set  p_description = '$projo_description', p_attachment = '$projo_attachment' WHERE project_id = '$form_project_id'";
+			$projo_pitch=$_POST["project_pitch"];
+			
+			$cv = rand(1000,100000)."-".$_FILES['file']['name'];
 
-			if($conn->query($query)) {
-				echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Pitch posted succesfully.</div></div></div>");
-				header("Refresh: 1; url=checkprojects.php");
+			$cv_loc = $_FILES['file']['tmp_name'];
+			$new_file_name = strtolower($cv);
+			$final_file=str_replace(' ','-',$new_file_name);
+ 			$folder="cvfolder/";
+			 if(move_uploaded_file($cv_loc,$folder.$final_file))
+			 {
+				$query = "INSERT INTO project_application (researcher_id, project_id, project_pitch, cv) VALUES ('$loggedin','$id','$projo_pitch','$final_file')";
 
-			}else {
-				echo "Fail".$conn->error;
+				if($conn->query($query)) {
+					echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Application Successful.</div></div></div>");
+					header("Refresh: 1; url=checkprojects.php");
+
+				}else {
+					echo "Fail".$conn->error;
+				}
 			}
 }
 
@@ -60,15 +68,16 @@ if (isset($_POST['submit'])) {
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
                 <div class="panel-heading">
-			    	<h3 class="panel-title">Project Title: <?php echo ($projo_name);?></h3>
+			    	<h3 class="panel-title">Project Title: <?php echo strtoupper($projo_name);?></h3>
 			 	</div>
 
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form"  method="POST">
+			    	<form accept-charset="UTF-8" role="form"  method="POST" enctype="multipart/form-data">
                     <fieldset>
-			    	  	<!-- <div class="form-group">
-			    		    <input class="form-control" placeholder="Project id" name="project_id" type="text" required>
-			    		</div> -->
+			    	  	<div class="form-group">
+						  Select CV to upload (PDF Only Accepted):<br>
+    						<input class="form-control" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
+			    		</div>
 			    		<div class="form-group">
 			    			Your Pitch:<br>
 				    		<div class="form-group">

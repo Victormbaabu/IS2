@@ -9,20 +9,33 @@ if (isset($_POST['submit'])) {
 		    $projo_name=$_POST["projo_name"];
 	        $projo_duration=$_POST["project_duration"];
 	        $projo_description=$_POST["p_description"];
-	        $projo_attachment=$_POST["p_attachment"];
-	        $form_project_id = $_POST["form_project_id"];
-				
-			$query = "UPDATE project set project_name = '$projo_name',  project_duration = '$projo_duration' WHERE project_id='$form_project_id'";
-			$query2 = "UPDATE project_description set  p_description = '$projo_description', p_attachment = '$projo_attachment' WHERE project_id = '$form_project_id'";
+	        // $projo_attachment=$_POST["p_attachment"];
+			$form_project_id = $_POST["form_project_id"];
 
-			if($conn->query($query) && $conn->query($query2)) {
-				echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Project updated succesfully.</div></div></div>");
-				// header("location:viewprojects.php");
+			$new_projo_name = strtoupper($projo_name);
+			
+			$p_attachment = rand(1000,100000)."-".$_FILES['file']['name'];
 
-			}else {
-				echo "Fail".$conn->error;
-			}
-}
+			$p_attachment_loc = $_FILES['file']['tmp_name'];
+			$new_file_name = strtolower($p_attachment);
+			$final_file=str_replace(' ','-',$new_file_name);
+			$folder="projectsfolder/";
+			
+			if(move_uploaded_file($p_attachment_loc,$folder.$final_file))
+				{
+						
+					$query = "UPDATE project set project_name = '$new_projo_name',  project_duration = '$projo_duration' WHERE project_id='$form_project_id'";
+					$query2 = "UPDATE project_description set  p_description = '$projo_description', p_attachment = '$final_file' WHERE project_id = '$form_project_id'";
+
+					if($conn->query($query) && $conn->query($query2)) {
+						echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Project updated succesfully.</div></div></div>");
+						// header("location:viewprojects.php");
+
+					}else {
+						echo "Fail".$conn->error;
+					}
+				}
+		}
 
 //querydata
 $sql = "SELECT * from project where project_id='$id'";
@@ -56,6 +69,7 @@ if ($res2->num_rows>0) {
 			$projo_id = $row['project_id'];
 			$projo_name = $row['project_name'];
 			$projo_duration = $row['project_duration'];
+			
 		
 
 			while($row=$res2->fetch_assoc()){
@@ -96,7 +110,7 @@ if ($res2->num_rows>0) {
 			    	<h3 class="panel-title">Update project</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form"  method="POST">
+			    	<form accept-charset="UTF-8" role="form"  method="POST" enctype="multipart/form-data">
                     <fieldset>
 			    	  	<!-- <div class="form-group">
 			    		    <input class="form-control" placeholder="Project id" name="project_id" type="text" required>
@@ -121,7 +135,8 @@ if ($res2->num_rows>0) {
 			    			<input class="form-control" placeholder="Project description" name="p_description" type="text" value="<?php echo $project_description ?>" required>
 			    		</div>
 			    		<div class="form-group">
-			    		    <input class="form-control" placeholder="Project attachment" name="p_attachment" type="text" value="<?php echo $project_attachment ?>">
+						  Upload Project Requirements File:<br>
+    						<input class="form-control" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
 			    		</div>
 			    		
 			    		
