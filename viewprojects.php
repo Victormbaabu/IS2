@@ -12,11 +12,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <style type="text/css">
     body {
-			background-image: ("resach.jpg");
-			
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
 		}
+
 		button {
-			background-color:#black;
+			background-color:#cyan;
 			color: black;
 			padding: 14px 20px;
 			display: inline-block;
@@ -32,14 +34,15 @@
 <body>
     <h1></h1>
     <div class="button_container">
-    <a class="active" href="home.php"><button type="button">Home</button> </a>
-    	<a href="logout.php"><button type="button"> Logout</button></a>
-    	<a href="addprojects.php"><button type="button"> Add Project</button></a>
-    	<a href="applicationsmade.php"><button type="button"> Applications</button></a>
-    	
-    </div>
+			
+    	<a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
+    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Logout</button></a>
+    	<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Add Project</button></a>
+    	<a href="applicationsmade.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Applications</button></a>
+	
+	</div>
     <table class="table table-inverse" border="1">
-      <thead>
+      <thead style = "color: rgb(132, 227, 59);">
     	<tr>
     		<th>PROJECT ID</th>
     		<th>PROJECT NAME</th>
@@ -79,10 +82,10 @@
 			  		<td><?php echo $projo_name ?></td>
 			  		<td><?php echo $projo_duration ?></td>
 			  		<td><?php echo $project_description ?></td>
-			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank">READ REQUIREMENTS</a></td>
+			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank" style = "color: rgb(132, 227, 59);">READ REQUIREMENTS</a></td>
 			  		
-			  		<td><a onclick="return confirm('delete project')" href='delete.php?id=<?php echo $row["project_id"]; ?>'>Delete</a></td>
-			  		<td><a onclick="return confirm('update project')" href='update1.php?id=<?php echo $row["project_id"]; ?>'>Update</a></td>
+			  		<td><a onclick="return confirm('delete project')" href='delete.php?id=<?php echo $row["project_id"];?>'style = "color: rgb(132, 227, 59);">Delete</a></td>
+			  		<td><a onclick="return confirm('update project')" href='update1.php?id=<?php echo $row["project_id"]; ?>'style = "color: rgb(132, 227, 59);">Update</a></td>
 
 			  	
 			  		</tr>

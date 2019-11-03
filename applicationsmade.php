@@ -36,8 +36,9 @@ if ($loggedin == 1){
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <style type="text/css">
     body {
-			background-image: ("resach.jpg");
-			
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
 		}
 		button {
 			background-color:#black;
@@ -56,14 +57,14 @@ if ($loggedin == 1){
 <body>
     <h1></h1>
     <div class="button_container">
-    <a class="active" href="home.php"><button type="button">Home</button> </a>
-    	<a href="logout.php"><button type="button"> Logout</button></a>
-    	<a href="addprojects.php"><button type="button"> Add Project</button></a>
-    	<a href="addprojects.php"><button type="button"> Applications</button></a>
+    <a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
+    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>
+    	<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Add Project</button></a>
+    	<a href="viewprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> All Projects</button></a>
     	
     </div>
     <table class="table table-inverse" border="1">
-      <thead>
+      <thead style = "color: rgb(132, 227, 59);">
     	<tr>
     		<th>APPLICATION ID</th>
     		<th>RESEARCHER</th>
@@ -102,9 +103,9 @@ if ($loggedin == 1){
 			  		<td><?php echo $researcher_fname ." ". $researcher_lname ?></td>
 			  		<td><?php echo $project_name ?></td>
 			  		<td><?php echo $pitch ?></td>
-					<td><a href="cvfolder/<?php echo $cv ?>" target="_blank">View CV</a></td>
+					<td><a href="cvfolder/<?php echo $cv ?>" target="_blank" style = "color: rgb(132, 227, 59);">View CV</a></td>
 			  				  		
-			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>'>Assign</a></td>
+			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>' style = "color: rgb(132, 227, 59);">Assign</a></td>
 			  		</tr>
 			  	  </tbody>
 			  <?php

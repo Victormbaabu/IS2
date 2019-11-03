@@ -6,14 +6,16 @@
   
     <style type="text/css">
     body {
-    background-image: url("resach.jpg");
+    background-image: url("resach3.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
     
                     
     
 }
     button {
       background-color:cyan;
-      color: grey;
+      color: black;
       padding: 14px 20px;
       display: inline-block;
       margin: 5px;

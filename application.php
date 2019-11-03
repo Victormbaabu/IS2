@@ -25,14 +25,31 @@ while($row=$selectedproject->fetch_assoc()){
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+	<style type="text/css">
+    body {
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
+		}
+		button {
+			background-color:#black;
+			color: black;
+			padding: 14px 20px;
+			display: inline-block;
+			margin: 5px;
+			border: none;
+			cursor: pointer;
+			width: 10%;
+
+		}
+
+	</style>
+
 </head>
 
-<body background="images/bg.jpg">
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<body>
+<h1 style="text-align: center; color: rgb(132, 227, 59);">Apply</h1>
+	
 	<div class="container">
     
 <?php
@@ -53,7 +70,7 @@ if (isset($_POST['submit'])) {
 
 				if($conn->query($query)) {
 					echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Application Successful.</div></div></div>");
-					header("Refresh: 1; url=checkprojects.php");
+					header("Refresh: 2; url=checkprojects.php");
 
 				}else {
 					echo "Fail".$conn->error;
@@ -67,8 +84,8 @@ if (isset($_POST['submit'])) {
     	<div class="col-md-4 col-md-offset-4">
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
-                <div class="panel-heading">
-			    	<h3 class="panel-title">Project Title: <?php echo strtoupper($projo_name);?></h3>
+				  <div class="panel-heading">
+			    	<h3 class="panel-title" style="color: rgb(132, 227, 59); text-align:center; font-size: 23px;">Project Title: <?php echo strtoupper($projo_name);?></h3>
 			 	</div>
 
 			  	<div class="panel-body">
@@ -76,17 +93,17 @@ if (isset($_POST['submit'])) {
                     <fieldset>
 			    	  	<div class="form-group">
 						  Select CV to upload (PDF Only Accepted):<br>
-    						<input class="form-control" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
+    						<input class="form-control"  style="height: 40px; border-color: rgb(132, 227, 59);" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
 			    		</div>
 			    		<div class="form-group">
 			    			Your Pitch:<br>
 				    		<div class="form-group">
-                                <textarea class="form-control"name="project_pitch" rows="10" id="pitch" required></textarea>
+                                <textarea class="form-control" style="border-color: rgb(132, 227, 59);" name="project_pitch" rows="10" id="pitch" required></textarea>
 				    		</div>
 				    	</div>		
 			    		
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Post Application" style="background: green;">
-						<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: green;">View All Projects</a>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Post Application" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">
+						<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">View All Projects</a>
 
 			    	</fieldset>
 			      	</form>

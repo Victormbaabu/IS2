@@ -55,9 +55,16 @@ if (isset($_POST['submit'])){
 	<script type="text/javascript">
 		
 	</script>
-
+	<style type="text/css">
+		body {
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
+		}
+	</style>
 </head>
-<body style="background-image: url('resach.jpg')">
+<body style="background-image: url('resach3.jpg')" >
+
 	<h1 style="text-align: center; text-decoration-color: blue;">FieldMaster</h1>
 	<div class="container">
     <div class="row">
@@ -65,7 +72,7 @@ if (isset($_POST['submit'])){
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
                 <div class="panel-heading">
-			    	<h3 class="panel-title">Add new project</h3>
+			    	<h3 class="panel-title" style="color: rgb(132, 227, 59); text-align:center; font-size: 23px;">Add New Project</h3>
 			 	</div>
 			  	<div class="panel-body">
 			    	<form accept-charset="UTF-8" role="form"  method="POST" enctype="multipart/form-data">
@@ -74,7 +81,7 @@ if (isset($_POST['submit'])){
 			    		    <input class="form-control" placeholder="Project id" name="project_id" type="text" required>
 			    		</div> -->
 			    		<div class="form-group">
-			    		    <input class="form-control" placeholder="Project name" name="project_name" type="text" required>
+			    		    <input class="form-control" style="height: 40px; border-color: rgb(132, 227, 59);" placeholder="Project name" name="project_name" type="text" required>
 			    		</div>
 			    		<div class="form-group">
 			    			Duration:<br>
@@ -82,20 +89,20 @@ if (isset($_POST['submit'])){
 							<input type="radio" name="project_duration" value="long_term"> Long-term<br>
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Project description" name="p_description" type="text" value="" required>
+			    			<input class="form-control" style="height: 40px; border-color: rgb(132, 227, 59);" placeholder="Project description"  name="p_description" type="text" value="" required>
 			    		</div>
 						<div class="form-group">
 						  Upload Project Requirements File:<br>
-    						<input class="form-control" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
+    						<input class="form-control" style="height: 40px; border-color: rgb(132, 227, 59);" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
 			    		</div>
 			    		<!-- <div class="form-group">
 			    		    <input class="form-control" placeholder="Project attachment" name="p_attachment" type="text" >
 			    		</div> -->
 			    		
 			    		
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Add Project" style="background: green;">
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Add Project" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">
 			    		<!-- <input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="View All Projects" style="background: green;"> -->
-			    		<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: green;">View All Projects</a>
+			    		<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">View All Projects</a>
 			    	</fieldset>
 			      	</form>
                       <hr/>

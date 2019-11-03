@@ -85,7 +85,9 @@
 					$researcher_fname = $row['r_fname'];
 					$researcher_lname = $row['r_lname'];
 			  		$project_name = $row['project_name'];
-			  		$pitch = $row['project_pitch'];
+					$pitch = $row['project_pitch'];
+					$cv = $row['cv'];
+					
 			  		
 			  		?>
 

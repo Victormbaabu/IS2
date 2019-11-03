@@ -11,9 +11,11 @@
 	<title>View Projects</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <style type="text/css">
-    body {
-			background-image: ("resach.jpg");
-			
+	
+		body {
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
 		}
 		button {
 			background-color:#black;
@@ -32,20 +34,19 @@
 <body>
     <h1></h1>
     <div class="button_container">
-    <a class="active" href="home.php"><button type="button">Home</button> </a>
-    	<a href="logout.php"><button type="button"> Logout</button></a>
+    <a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
+    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>
     
     	
     </div>
     <table class="table table-inverse" border="1">
-      <thead>
+      <thead style = "color: rgb(132, 227, 59);">
     	<tr>
-    		<th>project id</th>
-    		<th>project name</th>
-    		<th>project duration</th>
-    		<th>description id</th>
-    		<th>project description</th>
-    		<th>project attachment</th>
+    		<th>PROJECT ID</th>
+    		<th>PROJECT TITLE</th>
+    		<th>PROJECT DURATION</th>
+    		<th>PROJECT DESCRIPTION</th>
+    		<th>PROJECT ATTACHMENT</th>
     		
     	</tr>
       </thead>
@@ -74,14 +75,13 @@
 
 			  	  <tbody>
 			  		<tr>
-			  		<td><?php echo $projo_id ?></td>
+			  		<td>#<?php echo $projo_id ?></td>
 			  		<td><?php echo $projo_name ?></td>
 			  		<td><?php echo $projo_duration ?></td>
-			  		<td><?php echo $des_id ?></td>
 			  		<td><?php echo $project_description ?></td>
 			  		<td><?php echo $project_attachment ?></td>
 			  		
-			  		<td><a onclick="return confirm('apply for project')" href='application.php?id=<?php echo $row["project_id"]; ?>'>Apply</a></td>
+			  		<td><a onclick="return confirm('apply for project')" href='application.php?id=<?php echo $row["project_id"]; ?>' style = "color: rgb(132, 227, 59);">Apply</a></td>
 			  		
 
 			  	

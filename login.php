@@ -46,8 +46,7 @@
 
 if($m_email==$dbm_email && $m_password==$dbm_password){
 		header('location:addprojects.php');
-	}
- 
+	} 
  
  // if ($row){
 
@@ -67,7 +66,7 @@ if($m_email==$dbm_email && $m_password==$dbm_password){
 <html>
  <link rel="stylesheet" type="text/css" href="style.css">
 <head>
-	<title>login form</title>
+	<title>Manager Login</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    	
@@ -79,17 +78,17 @@ if($m_email==$dbm_email && $m_password==$dbm_password){
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body {
-    background-image: url("resach.jpg");
-   
-                    
-    
+    background-image: url("resach3.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+  
 }
 </style>
 
 </head>
 
 <body>
-	<h1 style="text-align: center; text-decoration-color: black;">FieldMaster</h1>
+	<h1 style="text-align: center; color: white;">FieldMaster</h1>
 
 	<div class="container">
     <div class="row">
@@ -97,24 +96,23 @@ if($m_email==$dbm_email && $m_password==$dbm_password){
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
                 <div class="panel-heading">
-			    	<h3 class="panel-title">Manager Login page</h3>
+			    	<h3 class="panel-title" style="color: rgb(132, 227, 59); text-align:center; font-size: 23px;"><b>Manager Login</b></h3>
 			 	</div>
 			  	<div class="panel-body">
 			    	<form accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="email" name="m_email" type="text" required="">
+			    		    <input class="form-control" style="height: 40px; border-color: rgb(132, 227, 59);" placeholder="Email" name="m_email" type="email" required>
 			    		</div>
-			    		</div>
-
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="m_password" type="password" value="" required="">
+			    			<input class="form-control" style="height: 40px; border-color: rgb(132, 227, 59);"  placeholder="Password" name="m_password" type="password" required>
 			    		</div>
 			    		
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Login" style="background: cyan;">
-			    		<a href="loginr.php" class="btn btn-lg btn-success btn-block" role="button" style="background: cyan;">Researcher Login Area</a>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Login" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">
 			    	</fieldset>
 			      	</form>
+					  <hr>
+					  <a href="index.html" class="btn btn-lg btn-success btn-block" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;"><< Back Home</a>
                       <hr/>
                     
 			    </div>

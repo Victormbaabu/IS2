@@ -93,9 +93,18 @@ if ($res2->num_rows>0) {
 
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		body {
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
+		}
+	</style>
+
 </head>
 
-<body background="images/bg.jpg">
+<body style="background-image: url('resach3.jpg')" >
 	<br>
 	<br>
 	<br>
@@ -140,7 +149,7 @@ if ($res2->num_rows>0) {
 			    		</div>
 			    		
 			    		
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Update Project" style="background: green;">
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Update Project" style="background: rgb(132, 227, 59);">
 						<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: green;">View All Projects</a>
 
 			    	</fieldset>
