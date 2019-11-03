@@ -32,8 +32,6 @@
 	}
 
 
-
-
  session_start();
 
  $_SESSION['manager_id']= $manager_id;
@@ -45,7 +43,7 @@
 
 
 if($m_email==$dbm_email && $m_password==$dbm_password){
-		header('location:addprojects.php');
+		header('location:viewprojects.php');
 	} 
  
  // if ($row){

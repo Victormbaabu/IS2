@@ -10,13 +10,13 @@ $loggedin = $_SESSION['role_id'];
 
 if ($loggedin == 1){
 
-			// require "dbconn.php";
+			// require "dbconn.php"; 
 
 			// $sql = "SELECT project.project_id, project.project_name, project.project_duration, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id FROM project JOIN project_description ON project.project_id = project_description.project_id ORDER BY project_description.project_id DESC";
 			$sql = 
 			"SELECT 
-				project_application.project_pitch, project_application.application_id, project_application.cv, project_application.project_id, project_application.researcher_id,
-				researcher.r_fname, researcher.r_lname, project.project_name 
+				project_application.project_pitch, project_application.assignment_status, project_application.application_id, project_application.cv, project_application.project_id, project_application.researcher_id,
+				researcher.r_fname, researcher.r_lname, researcher.r_email, project.project_name 
 			FROM 
 			 	project_application
 			JOIN 
@@ -26,7 +26,11 @@ if ($loggedin == 1){
 			JOIN 
 				project 
 			ON 
-				project_application.project_id = project.project_id";
+				project_application.project_id = project.project_id 
+			WHERE
+				project_application.assignment_status = 0"
+			;
+			
 			
 			
 			$result = $conn->query($sql);
@@ -34,7 +38,8 @@ if ($loggedin == 1){
 <head>
 	<title>View Projects</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <style type="text/css">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<style type="text/css">
     body {
 			background-image: url("resach3.jpg");  
 			background-size: 100%;
@@ -50,6 +55,7 @@ if ($loggedin == 1){
 			cursor: pointer;
 			width: 10%;
 
+
 		}
 
 	</style>
@@ -57,12 +63,15 @@ if ($loggedin == 1){
 <body>
     <h1></h1>
     <div class="button_container">
-    <a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
-    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>
-    	<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Add Project</button></a>
-    	<a href="viewprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> All Projects</button></a>
-    	
-    </div>
+    	<a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
+    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Logout</button></a>
+		<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Add Project</button></a>
+		<a href="applicationsmade.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Applications</button></a>
+    	<a href="assigned.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Assigned Projects</button></a>
+	</div>
+	<hr>
+		<h3 style = "color: rgb(132, 227, 59); text-align: center;">Project Applications:</h3>
+	<hr>
     <table class="table table-inverse" border="1">
       <thead style = "color: rgb(132, 227, 59);">
     	<tr>
@@ -91,6 +100,7 @@ if ($loggedin == 1){
 			  		$application_id = $row['application_id'];
 					$researcher_fname = $row['r_fname'];
 					$researcher_lname = $row['r_lname'];
+					$researcher_email = $row['r_email'];
 			  		$project_name = $row['project_name'];
 					$pitch = $row['project_pitch'];
 					$cv= $row['cv'];
@@ -103,9 +113,11 @@ if ($loggedin == 1){
 			  		<td><?php echo $researcher_fname ." ". $researcher_lname ?></td>
 			  		<td><?php echo $project_name ?></td>
 			  		<td><?php echo $pitch ?></td>
-					<td><a href="cvfolder/<?php echo $cv ?>" target="_blank" style = "color: rgb(132, 227, 59);">View CV</a></td>
+					<td><a href="cvfolder/<?php echo $cv ?>" target="_blank" style = "color: rgb(132, 227, 59);">View CV     <i class="far fa-file-pdf" style="color:red; font-weight: 1px; font-size: 18px;"></i></a></td>
 			  				  		
-			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>' style = "color: rgb(132, 227, 59);">Assign</a></td>
+					  <td><a onclick="return confirm('assign project')" 
+					  href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>&researcher_fname=<?php echo $row["r_fname"]; ?>&researcher_lname=<?php echo $row["r_lname"]; ?>&project_name=<?php echo $row["project_name"]; ?>&researcher_email=<?php echo $row["r_email"]; ?>' style = "color: rgb(132, 227, 59);">
+					  Assign</a></td>
 			  		</tr>
 			  	  </tbody>
 			  <?php

@@ -65,7 +65,7 @@ if (isset($_POST['submit'])){
 </head>
 <body style="background-image: url('resach3.jpg')" >
 
-	<h1 style="text-align: center; text-decoration-color: blue;">FieldMaster</h1>
+	<h1 style="text-align: center; color: white;">FieldMaster</h1>
 	<div class="container">
     <div class="row">
     	<div class="col-md-4 col-md-offset-4">

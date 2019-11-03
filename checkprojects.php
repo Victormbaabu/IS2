@@ -3,13 +3,20 @@
    <?php
 			require "dbconn.php";
 
-			$sql = "SELECT project.project_id, project.project_name, project.project_duration, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id FROM project JOIN project_description ON project.project_id = project_description.project_id ORDER BY project_description.project_id DESC";
+			$sql = "SELECT project.project_id, project.project_name, project.project_duration, project.assignment_status, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id 
+			FROM project 
+			JOIN project_description 
+			ON project.project_id = project_description.project_id 
+			-- only select unassigned projects:
+			WHERE project.assignment_status = 0 
+			ORDER BY project_description.project_id DESC";
 
 			$result = $conn->query($sql);
     ?>
 <head>
 	<title>View Projects</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style type="text/css">
 	
 		body {
@@ -34,11 +41,14 @@
 <body>
     <h1></h1>
     <div class="button_container">
-    <a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
-    	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>
-    
-    	
-    </div>
+		<a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
+		<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>	
+	</div>
+	
+	<hr>
+		<h3 style = "color: rgb(132, 227, 59); text-align: center;">Unassigned Projects:</h3>
+	<hr>
+
     <table class="table table-inverse" border="1">
       <thead style = "color: rgb(132, 227, 59);">
     	<tr>
@@ -69,7 +79,6 @@
 			  		$des_id = $row['description_id'];
 			  		$project_description = $row['p_description'];
 			  		$project_attachment = $row['p_attachment'];
-			  	
 
 			  		?>
 
@@ -79,7 +88,7 @@
 			  		<td><?php echo $projo_name ?></td>
 			  		<td><?php echo $projo_duration ?></td>
 			  		<td><?php echo $project_description ?></td>
-			  		<td><?php echo $project_attachment ?></td>
+			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank" style = "color: rgb(132, 227, 59);">Read Requirements <i class="far fa-file-pdf" style="color:red; font-weight: 1px; font-size: 18px;"></i></a></td>
 			  		
 			  		<td><a onclick="return confirm('apply for project')" href='application.php?id=<?php echo $row["project_id"]; ?>' style = "color: rgb(132, 227, 59);">Apply</a></td>
 			  		

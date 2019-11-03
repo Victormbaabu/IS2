@@ -1,38 +1,70 @@
 <!DOCTYPE html>
 <html>
-   <?php
-            require "dbconn.php";
-            
-            $project_id = $_GET['project_id'];
-            $researcher_id = $_GET['researcher_id'];
-            echo "PROJECT ID ASSIGNED: ".$project_id;
-            echo "RESEARCHER ID ASSIGNED: ".$researcher_id;
 
-			$sql = 
-			"SELECT 
-				project_application.project_pitch, project_application.application_id, project_application.project_id, project_application.researcher_id,
-				researcher.r_fname, researcher.r_lname, project.project_name 
-			FROM 
-			 	project_application
-			JOIN 
-				researcher 
-			ON 
-				project_application.researcher_id = researcher.researcher_id 
-			JOIN 
-				project 
-			ON 
-				project_application.project_id = project.project_id";
+<?php
+ 
+session_start();
+require('dbconn.php');
+// $id = $_GET['id'];
+$loggedin = $_SESSION['role_id'];
+$project_id = $_GET['project_id'];
+$researcher_id = $_GET['researcher_id'];
+$project_name = $_GET['project_name'];
+$researcher_fname = $_GET['researcher_fname'];
+$researcher_lname = $_GET['researcher_lname'];
+$researcher_email = $_GET['researcher_email'];
+
+if ($loggedin == 1){ 
+
+	if (isset($_POST['confirm'])){
+            
+			$sql1 = 
+			"INSERT INTO assigned_projects 
+				(project_id, researcher_id)
+			 VALUES
+				 ($project_id, $researcher_id)";
+			$sql2 = 
+			"UPDATE project_application SET 
+				 assignment_status = 1
+			 WHERE
+				 project_id  = $project_id";
+
+			$sql3 = 
+			"UPDATE project SET 
+				 assignment_status = 1
+			 WHERE
+				 project_id  = $project_id";
+		
+			if($conn->query($sql1) &&  $conn->query($sql2) && $conn->query($sql3) ) {
+				// if($conn->multi_query($sql)) {
+					echo ("<br> <div class='col-md-4 col-md-offset-4'><div class='panel panel-success'><div class='panel-heading text-center'>Assigned Successfully.</div></div></div>");
+					header("Refresh: 2; url=applicationsmade.php");
+	
+				}else {
+					echo "Fail".$conn->error;
+				}
 			
+		}
+	
 			
-			$result = $conn->query($sql);
+
     ?>
 <head>
-	<title>View Projects</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<title>Assign This Project</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   	
+    <link rel="stylesheet" type="text/css" href="sidebar.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
     body {
-			background-image: ("resach.jpg");
-			
+			background-image: url("resach3.jpg");  
+			background-size: 100%;
+			background-repeat: no-repeat;
 		}
 		button {
 			background-color:#black;
@@ -48,66 +80,52 @@
 
 	</style>
 </head>
+
 <body>
-    <h1></h1>
-    <div class="button_container">
-    <a class="active" href="home.php"><button type="button">Home</button> </a>
-    	<a href="logout.php"><button type="button"> Logout</button></a>
-    	<a href="addprojects.php"><button type="button"> Add Project</button></a>
-    	<a href="addprojects.php"><button type="button"> Applications</button></a>
-    	
-    </div>
-    <table class="table table-inverse" border="1">
-      <thead>
-    	<tr>
-    		<th>APPLICATION ID</th>
-    		<th>RESEARCHER</th>
-    		<th>PROJECT</th>
-    		<th>PITCH</th>
-			<th>ACTION</th>
-    		
-    		
-    	</tr>
-      </thead>
 
-    	<?php
+<h1 style="text-align: center; color: rgb(132, 227, 59);">Confirm Assignment</h1>
+	
+	<div class="container">
+		
+	<div class="row">
+    	<div class="col-md-4 col-md-offset-4">
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+				  <div class="panel-heading">
+			    	<h3 class="panel-title" style="color: rgb(132, 227, 59); text-align:center; font-size: 23px;">Project Title: <?php echo strtoupper($project_name);?></h3>
+			 	</div>
 
-	    	$application_id = " ";
-	    	$researcher_name = " "; 
-			$project_name = " ";	
-			$pitch = " ";
-			
-			//   if ($result->num_rows >0) {
-			  	# output data of each row
-			if ($result) {
-			  	while ($row = $result->fetch_assoc()) {
-			  		$application_id = $row['application_id'];
-					$researcher_fname = $row['r_fname'];
-					$researcher_lname = $row['r_lname'];
-			  		$project_name = $row['project_name'];
-					$pitch = $row['project_pitch'];
-					$cv = $row['cv'];
-					
-			  		
-			  		?>
+			  	<div class="panel-body">
+			    	<form accept-charset="UTF-8" role="form"  method="POST">
+						<fieldset>
+							<div class="form-group">
+								<span style="color: rgb(132, 227, 59);">Researcher Full Name:</span><br>
+								<input class="form-control"  style="height: 40px; border-color: rgb(132, 227, 59);" type="text" value="<?php echo strtoupper($researcher_fname.' '.$researcher_lname);?>" readonly>
+							</div>
+							<div class="form-group">
+								<span style="color: rgb(132, 227, 59);">Researcher Email:</span><br>
+								<input class="form-control"  style="height: 40px; border-color: rgb(132, 227, 59);" type="text" value="<?php echo ($researcher_email);?>" readonly>
+							</div>
+							
+							<input class="btn btn-lg btn-success btn-block" type="submit" name="confirm" value="Confirm Assignment" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">
+							<a class="btn btn-lg btn-success btn-block" href="applicationsmade.php" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">Cancel Assignment</a>
 
-			  	  <tbody>
-			  		<tr>
-			  		<td><?php echo $application_id ?></td>
-			  		<td><?php echo $researcher_fname ." ". $researcher_lname ?></td>
-			  		<td><?php echo $project_name ?></td>
-			  		<td><?php echo $pitch ?></td>
-			  				  		
-			  		<td><a onclick="return confirm('assign project')" href='assign.php?project_id=<?php echo $row["project_id"]; ?>&researcher_id=<?php echo $row["researcher_id"]; ?>'>Assign</a></td>
+						</fieldset>
+			      	</form>
+                      <hr/>
+                    
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 
-			  		</tr>
-			  	  </tbody>
 			  <?php
 			  	}
-			  }else{
-				trigger_error('Invalid query: ' . $conn->error);
-			  	echo "0 results";
-			  }
+			  else{
+				echo ("Unauthorized Access");
+			}		  
 
     	?>
     </table>

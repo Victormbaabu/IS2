@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
 			    	<form accept-charset="UTF-8" role="form"  method="POST" enctype="multipart/form-data">
                     <fieldset>
 			    	  	<div class="form-group">
-						  Select CV to upload (PDF Only Accepted):<br>
+						  Upload your Proposal (Only PDF Accepted):<br>
     						<input class="form-control"  style="height: 40px; border-color: rgb(132, 227, 59);" type="file" name="file" id="fileToUpload" accept="application/pdf" required>
 			    		</div>
 			    		<div class="form-group">
@@ -103,7 +103,7 @@ if (isset($_POST['submit'])) {
 				    	</div>		
 			    		
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Post Application" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">
-						<a class="btn btn-lg btn-success btn-block" href="viewprojects.php" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">View All Projects</a>
+						<a class="btn btn-lg btn-success btn-block" href="checkprojects.php" role="button" style="background: rgb(132, 227, 59); font-size: 17px; padding: 7px; border-color: green;">View All Projects</a>
 
 			    	</fieldset>
 			      	</form>

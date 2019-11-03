@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
    <?php
-			require "dbconn.php";
+   
+session_start();
+require('dbconn.php');
+// $id = $_GET['id'];
+$loggedin = $_SESSION['role_id'];
 
+if ($loggedin == 1){
 			$sql = "SELECT project.project_id, project.project_name, project.project_duration, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id FROM project JOIN project_description ON project.project_id = project_description.project_id ORDER BY project_description.project_id DESC";
 
 			$result = $conn->query($sql);
@@ -10,7 +15,8 @@
 <head>
 	<title>View Projects</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <style type="text/css">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<style type="text/css">
     body {
 			background-image: url("resach3.jpg");  
 			background-size: 100%;
@@ -37,10 +43,16 @@
 			
     	<a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
     	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Logout</button></a>
-    	<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Add Project</button></a>
-    	<a href="applicationsmade.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Applications</button></a>
+		<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Add Project</button></a>
+		<a href="applicationsmade.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Applications</button></a>
+    	<a href="assigned.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Assigned Projects</button></a>
 	
 	</div>
+
+	<hr>
+		<h3 style = "color: rgb(132, 227, 59); text-align: center;">All Projects:</h3>
+	<hr>
+
     <table class="table table-inverse" border="1">
       <thead style = "color: rgb(132, 227, 59);">
     	<tr>
@@ -78,11 +90,11 @@
 
 			  	  <tbody>
 			  		<tr>
-			  		<td><?php echo $projo_id ?></td>
+			  		<td>#<?php echo $projo_id ?></td>
 			  		<td><?php echo $projo_name ?></td>
 			  		<td><?php echo $projo_duration ?></td>
 			  		<td><?php echo $project_description ?></td>
-			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank" style = "color: rgb(132, 227, 59);">READ REQUIREMENTS</a></td>
+			  		<td><a href="projectsfolder/<?php echo $project_attachment ?>" target="_blank" style = "color: rgb(132, 227, 59);"> Requirements   <i class="far fa-file-pdf" style="color:red; font-weight: 1px; font-size: 18px;"></i></a></td>
 			  		
 			  		<td><a onclick="return confirm('delete project')" href='delete.php?id=<?php echo $row["project_id"];?>'style = "color: rgb(132, 227, 59);">Delete</a></td>
 			  		<td><a onclick="return confirm('update project')" href='update1.php?id=<?php echo $row["project_id"]; ?>'style = "color: rgb(132, 227, 59);">Update</a></td>
@@ -95,6 +107,9 @@
 			  }else{
 			  	echo "0 results";
 			  }
+			}else{
+				echo "Unauthorized Access";
+			}
 
     	?>
     </table>
