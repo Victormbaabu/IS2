@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
    <?php
-			require "dbconn.php";
 
-			$sql = "SELECT project.project_id, project.project_name, project.project_duration, project.assignment_status, project_description.p_description, project_description.p_attachment, project_description.project_id, project_description.description_id 
+   			
+session_start();
+require('dbconn.php');
+// $id = $_GET['id'];
+$loggedin = $_SESSION['role_id'];
+$loggedin_id = $_SESSION['researcher_id'];
+
+if ($loggedin == 2 || $loggedin == 2){
+			$sql = "SELECT project.project_id, project.project_name, project.project_duration,
+			 	project.assignment_status, project_description.p_description, 
+			 	project_description.p_attachment, project_description.project_id, 
+				project_description.description_id, project_application.researcher_id, project_application.project_id   
 			FROM project 
+			JOIN project_application 
+			ON project.project_id = project_application.project_id 
 			JOIN project_description 
 			ON project.project_id = project_description.project_id 
 			-- only select unassigned projects:
@@ -42,7 +54,9 @@
     <h1></h1>
     <div class="button_container">
 		<a class="active" href="index.html"><button type="button" style = "background-color: rgb(132, 227, 59);">Home</button> </a>
-		<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>	
+		<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>
+		<a class="active" href="submitproject.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;">Submit A Project</button> </a>
+		<!-- <a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Logout</button></a>		 -->
 	</div>
 	
 	<hr>
@@ -63,7 +77,8 @@
 
     	<?php
 
-	    	$projo_id = " ";
+			$projo_id = " ";
+			$researcher_id = " ";
 	    	$projo_name = " ";
 			$projo_duration = " ";
 			$des_id = " ";
@@ -73,13 +88,18 @@
 			  	# output data of each row
 
 			  	while ($row = $result->fetch_assoc()) {
-			  		$projo_id = $row['project_id'];
-			  		$projo_name = $row['project_name'];
-			  		$projo_duration = $row['project_duration'];
-			  		$des_id = $row['description_id'];
-			  		$project_description = $row['p_description'];
-			  		$project_attachment = $row['p_attachment'];
 
+						$projo_id = $row['project_id'];
+						$projo_name = $row['project_name'];
+						$projo_duration = $row['project_duration'];
+						$des_id = $row['description_id'];
+						$project_description = $row['p_description'];
+						$project_attachment = $row['p_attachment'];
+						$researcher_id = $row['researcher_id'];
+					
+
+						if ($loggedin_id != $researcher_id){
+							
 			  		?>
 
 			  	  <tbody>
@@ -97,10 +117,12 @@
 			  		</tr>
 			  	  </tbody>
 			  <?php
-			  	}
+				  }
+			}
 			  }else{
 			  	echo "0 results";
 			  }
+			}
 
     	?>
     </table>
