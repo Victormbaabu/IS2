@@ -67,7 +67,7 @@ if ($loggedin == 1){
     	<a href="assigned.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Assigned Projects</button></a>
 	</div>
 	<hr>
-		<h3 style = "color: rgb(132, 227, 59); text-align: center;">Project Applications:</h3>
+		<h3 style = "color: rgb(132, 227, 59); text-align: center;">Project submissions:</h3>
 	<hr>
     <table class="table table-inverse" border="1">
       <thead style = "color: rgb(132, 227, 59);">

@@ -45,7 +45,8 @@ if ($loggedin == 1){
     	<a href="logout.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Logout</button></a>
 		<a href="addprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59)"> Add Project</button></a>
 		<a href="applicationsmade.php"><button type="button" style = "background-color: rgb(132, 227, 59);"> Applications</button></a>
-    	<a href="assigned.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Assigned Projects</button></a>
+		<a href="assigned.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Assigned Projects</button></a>
+		<a href="submittedprojects.php"><button type="button" style = "background-color: rgb(132, 227, 59); width: 200px;"> Submitted Projects</button></a>
 	
 	</div>
 

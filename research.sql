@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2019 at 03:27 PM
+-- Generation Time: Nov 26, 2019 at 01:16 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.3.5
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `research`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assigned_projects`
+--
+
+CREATE TABLE `assigned_projects` (
+  `assign_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `researcher_id` int(11) NOT NULL,
+  `submitted` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `assigned_projects`
+--
+
+INSERT INTO `assigned_projects` (`assign_id`, `project_id`, `researcher_id`, `submitted`) VALUES
+(5, 78, 8, 1),
+(6, 80, 8, 1),
+(7, 94, 10, 1),
+(8, 84, 2, 1),
+(9, 92, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -74,62 +98,47 @@ INSERT INTO `manager` (`manager_id`, `m_fname`, `m_lname`, `m_email`, `m_passwor
 CREATE TABLE `project` (
   `project_id` int(11) NOT NULL,
   `project_name` varchar(100) NOT NULL,
-  `project_duration` varchar(100) NOT NULL
+  `project_duration` varchar(100) NOT NULL,
+  `assignment_status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`project_id`, `project_name`, `project_duration`) VALUES
-(1, 'asdfasd', 'short_term'),
-(2, 'pp', 'short_term'),
-(3, 'pp', 'short_term'),
-(4, 'pp', 'short_term'),
-(5, 'pp', 'short_term'),
-(6, 'pp', 'short_term'),
-(7, 'pp', 'short_term'),
-(8, 'pp', 'short_term'),
-(9, 'pp', 'short_term'),
-(11, 'pp', 'short_term'),
-(13, 'pp', 'short_term'),
-(14, 'stm', 'short_term'),
-(15, 'pp', 'short_term'),
-(17, 'pp', 'short_term'),
-(19, 'pp', 'short_term'),
-(21, 'pp', 'short_term'),
-(23, 'pp', 'short_term'),
-(24, 'Multimedia', 'long_term'),
-(25, 'Multimedia', 'long_term'),
-(26, 'Game Programming', 'long_term'),
-(27, 'Game Programming', 'long_term'),
-(28, 'Switching', 'long_term'),
-(29, 'Switching', 'long_term'),
-(30, 'Crypography and Network Security', 'short_term'),
-(31, 'Crypography and Network Security', 'short_term'),
-(32, 'Web Dev', 'long_term'),
-(33, 'Web development', 'short_term'),
-(34, 'Special Topics in IT', 'short_term'),
-(35, 'Special topics', 'short_term'),
-(36, 'Android', 'short_term'),
-(37, 'Android', 'short_term'),
-(39, 'Php', 'long_term'),
-(41, 'New Project', 'short_term'),
-(43, 'Another One', 'short_term'),
-(44, 'stc', 'long_term'),
-(45, 'stc', 'long_term'),
-(47, 'ooad', 'long_term'),
-(48, 'Gumzo', 'long_term'),
-(49, 'Gumzo', 'long_term'),
-(51, 'ewfsd', 'short_term'),
-(52, 'Gumzo', 'short_term'),
-(53, 'Gumzo', 'short_term'),
-(54, 'Gumzo', 'short_term'),
-(55, 'Gumzo', 'short_term'),
-(57, 'Gumzo', 'short_term'),
-(59, 'networking', 'long_term'),
-(60, 'Gumzo', 'long_term'),
-(61, 'Gumzo', 'long_term');
+INSERT INTO `project` (`project_id`, `project_name`, `project_duration`, `assignment_status`) VALUES
+(78, 'POST MALONE', 'short_term', 1),
+(79, 'POST MALONE', 'short_term', 0),
+(80, 'DRAKE', 'long_term', 1),
+(81, 'DRAKE', 'long_term', 0),
+(82, 'GUMZO', 'short_term', 0),
+(83, 'GUMZO', 'short_term', 0),
+(84, 'GUMZO', 'long_term', 1),
+(85, 'GUMZO', 'long_term', 0),
+(86, 'MULTIMEDIA', 'short_term', 0),
+(87, 'MULTIMEDIA', 'short_term', 0),
+(88, 'GAME PROGRAMMING', 'short_term', 0),
+(89, 'GAME PROGRAMMING', 'short_term', 0),
+(90, 'CRYPOGRAPHY AND NETWORK SECURITY', 'long_term', 0),
+(91, 'CRYPOGRAPHY AND NETWORK SECURITY', 'long_term', 0),
+(92, 'TRAVIS', 'long_term', 1),
+(93, 'TRAVIS', 'long_term', 0),
+(94, 'MARKETING', 'long_term', 1),
+(95, 'MARKETING', 'long_term', 0),
+(96, 'LAN DESIGN', 'long_term', 0),
+(97, 'LAN DESIGN', 'long_term', 0),
+(98, 'GAME PROGRAMMING', 'short_term', 0),
+(99, 'GAME PROGRAMMING', 'short_term', 0),
+(100, 'MAKMOHAN', 'long_term', 0),
+(101, 'MAKMOHAN', 'long_term', 0),
+(102, 'FORENSICS', 'short_term', 0),
+(103, 'FORENSICS', 'long_term', 0),
+(104, 'HELB', 'long_term', 0),
+(105, 'HELB', 'long_term', 0),
+(106, 'REFORMS', 'long_term', 0),
+(107, 'REFORMS', 'long_term', 0),
+(108, 'CHRISTMAS', 'long_term', 0),
+(109, 'CHRISTMAS', 'long_term', 0);
 
 -- --------------------------------------------------------
 
@@ -141,21 +150,25 @@ CREATE TABLE `project_application` (
   `application_id` int(11) NOT NULL,
   `researcher_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
-  `project_pitch` varchar(500) NOT NULL
+  `project_pitch` varchar(500) NOT NULL,
+  `cv` varchar(100) DEFAULT NULL,
+  `assignment_status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_application`
 --
 
-INSERT INTO `project_application` (`application_id`, `researcher_id`, `project_id`, `project_pitch`) VALUES
-(1, 8, 44, 'Kuja na ngwai'),
-(2, 8, 36, 'Okay thanks.'),
-(3, 8, 24, 'Awesome logo meru mzima'),
-(4, 8, 32, 'Bora systems.'),
-(5, 8, 32, 'I will do a good job'),
-(6, 8, 24, 'i can do it\r\nvery'),
-(7, 8, 36, 'i have workedbdshgcbvi;ufcbjvnsfnubj');
+INSERT INTO `project_application` (`application_id`, `researcher_id`, `project_id`, `project_pitch`, `cv`, `assignment_status`) VALUES
+(17, 8, 78, 'Perfect for my skills.', '20954-block-ciphers-and-des.pdf', 1),
+(18, 8, 80, 'My kind pitch.', '11376-db_schema.pdf', 1),
+(19, 10, 94, 'Please consider my application. I have a vast knowledge on market strategies.', '98725-1.-wan-introduction-to-wans.pdf', 1),
+(20, 6, 84, 'I have done this before.', '96272-tco2.pdf', 1),
+(22, 10, 92, 'MBVHXMYDRMCDJRTDCMGCX', '45375-fee-4.2.pdf', 1),
+(23, 8, 92, 'I have vast experience on the project on TRAVIS', '33351-bbt-4201---information-systems-auditing-â€“-april-2018.pdf', 1),
+(24, 10, 92, 'yes we can', '49427-bbt-4201---information-systems-audit---november-2018.pdf', 1),
+(25, 2, 84, 'I have dealt with governors before.', '8380-receipt.pdf', 1),
+(26, 11, 92, 'dsjsdgfdcvccfgzdifjkdxbfjhvxdjbfvjxbhcgvxf', '62201-fee-4.2.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +179,7 @@ INSERT INTO `project_application` (`application_id`, `researcher_id`, `project_i
 CREATE TABLE `project_description` (
   `description_id` int(11) NOT NULL,
   `p_description` varchar(500) NOT NULL,
-  `p_attachment` longblob NOT NULL,
+  `p_attachment` varchar(100) DEFAULT NULL,
   `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -175,15 +188,21 @@ CREATE TABLE `project_description` (
 --
 
 INSERT INTO `project_description` (`description_id`, `p_description`, `p_attachment`, `project_id`) VALUES
-(3, 'sir thomas more', 0x3520746820666c6f6f72, 14),
-(8, 'make a logo', 0x6d756e64616d61, 24),
-(9, 'create a game', 0x50726f6a6f, 26),
-(10, 'LAN design and STP', 0x5370616e6e696e6720747265652070726f746f63616c20646f63756d656e74, 28),
-(11, 'Term Paper', 0x4e656c736f6e, 30),
-(12, 'Create web forms', 0x6162636465666768, 32),
-(13, 'Create an animation clip', 0x4176617461722066726f6d2061737365742073746f7265, 34),
-(14, 'create a mobile app', 0x55736520616e64726f69642073747564696f, 36),
-(18, 'Third floor', 0x7573652074686520656c657661746f72, 44);
+(23, 'White Iverson', '35618-890092.pdf', 78),
+(24, 'SCORPION', '8942-26059380.pdf', 80),
+(25, 'GOVERNORS', '65269-examcard-095507.pdf', 84),
+(26, 'LOGO', '2661-fee-4.2.pdf', 86),
+(27, 'MECANIM', '14101-installment-plan.pdf', 88),
+(28, 'CIPHERS', '2208-marksreport-095507-(1).pdf', 90),
+(29, 'FLEX', '51421-receipt.pdf', 92),
+(30, 'NETWORK', '77759-victormuguna-bbit2c3105itn-certificate.pdf', 94),
+(31, '3-TIER MODEL', '51641-victormuguna-it+fundamentals+(bbi-certificate.pdf', 96),
+(32, 'GAME', '8796-receipt.pdf', 98),
+(33, 'Blueberry', '19213-bbt-4201---information-systems-auditing-â€“-august-2018.pdf', 100),
+(34, 'autopsy software ', '48247-risk-management-introduction.pdf', 102),
+(35, 'pay your loan', '16221-fee-4.2.pdf', 104),
+(36, 'police force reforms', '43455-installment-plan.pdf', 106),
+(37, 'its on 25', '83549-marksreport-095507-(1).pdf', 108);
 
 -- --------------------------------------------------------
 
@@ -195,11 +214,8 @@ CREATE TABLE `researcher` (
   `researcher_id` int(11) NOT NULL,
   `r_fname` varchar(100) NOT NULL,
   `r_lname` varchar(100) NOT NULL,
-  `project_id` int(11) NOT NULL,
   `r_email` varchar(100) NOT NULL,
   `r_password` varchar(100) NOT NULL,
-  `r_skills` varchar(500) NOT NULL,
-  `phone_number` int(11) NOT NULL,
   `role_id` int(11) NOT NULL DEFAULT '2'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -207,18 +223,53 @@ CREATE TABLE `researcher` (
 -- Dumping data for table `researcher`
 --
 
-INSERT INTO `researcher` (`researcher_id`, `r_fname`, `r_lname`, `project_id`, `r_email`, `r_password`, `r_skills`, `phone_number`, `role_id`) VALUES
-(2, 'Faith', 'Kamau', 0, 'faith.kamau@gmail.com', 'Faith123', '', 0, 2),
-(3, 'David', 'Omagwa', 0, 'david.omagwa@strathmore.edu', 'David123', '', 0, 2),
-(4, 'Frank', 'Mbaabu', 0, 'frank.mbaabu@gmail.com', 'Frank123', '', 0, 2),
-(5, 'June', 'Katunge', 0, 'june.katunge@strathmore.edu', 'June123', '', 0, 2),
-(6, 'Roy', 'Khasiani', 0, 'roy.khasiani@gmail.com', 'Roy123', '', 0, 2),
-(7, 'Naomi', 'nkirote', 0, 'nao@gmail.com', 'nao123', '', 0, 2),
-(8, 'doris', 'mwari', 0, 'd.mwari@gmail.com', 'Doris123', '', 0, 2);
+INSERT INTO `researcher` (`researcher_id`, `r_fname`, `r_lname`, `r_email`, `r_password`, `role_id`) VALUES
+(2, 'Faith', 'Kamau', 'faith.kamau@gmail.com', 'Faith123', 2),
+(3, 'David', 'Omagwa', 'david.omagwa@strathmore.edu', 'David123', 2),
+(4, 'Frank', 'Mbaabu', 'frank.mbaabu@gmail.com', 'Frank123', 2),
+(5, 'June', 'Katunge', 'june.katunge@strathmore.edu', 'June123', 2),
+(6, 'Roy', 'Khasiani', 'roy.khasiani@gmail.com', 'Roy123', 2),
+(7, 'Naomi', 'nkirote', 'nao@gmail.com', 'nao123', 2),
+(8, 'doris', 'mwari', 'd.mwari@gmail.com', 'Doris123', 2),
+(9, 'Frank', 'Manyara', 'f.manyara@gmail.com', 'Frank123', 2),
+(10, 'Frank', 'Manyara', 'f.manyara@gmail.com', 'Frank123', 2),
+(11, 'christmas', 'Maina', 'c.maina@gmail.com', 'Maina123', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submissions`
+--
+
+CREATE TABLE `submissions` (
+  `submission_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `researcher_id` int(11) NOT NULL,
+  `submission_date` varchar(100) NOT NULL,
+  `attachment` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `submissions`
+--
+
+INSERT INTO `submissions` (`submission_id`, `project_id`, `researcher_id`, `submission_date`, `attachment`) VALUES
+(5, 78, 8, '2019-11-24 15:13:27', '92848-DB_SCHEMA.pdf'),
+(6, 80, 8, '2019-11-24 17:49:31', '38176-DB_SCHEMA.pdf'),
+(7, 84, 2, '2019-11-26 11:57:55', '47847-VictorMuguna-BBIT2C3105ITN-Certificate.pdf'),
+(8, 94, 10, '2019-11-26 14:19:58', '21761-ExamCard-095507.pdf');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `assigned_projects`
+--
+ALTER TABLE `assigned_projects`
+  ADD PRIMARY KEY (`assign_id`),
+  ADD KEY `researcher_id` (`researcher_id`),
+  ADD KEY `project_id_fk23` (`project_id`);
 
 --
 -- Indexes for table `employee_role`
@@ -262,8 +313,22 @@ ALTER TABLE `researcher`
   ADD KEY `role_id_fk2` (`role_id`);
 
 --
+-- Indexes for table `submissions`
+--
+ALTER TABLE `submissions`
+  ADD PRIMARY KEY (`submission_id`),
+  ADD KEY `researcher_id_fk3` (`researcher_id`),
+  ADD KEY `project_id_fk233` (`project_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `assigned_projects`
+--
+ALTER TABLE `assigned_projects`
+  MODIFY `assign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `employee_role`
@@ -281,29 +346,42 @@ ALTER TABLE `manager`
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `project_application`
 --
 ALTER TABLE `project_application`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `project_description`
 --
 ALTER TABLE `project_description`
-  MODIFY `description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `researcher`
 --
 ALTER TABLE `researcher`
-  MODIFY `researcher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `researcher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `submissions`
+--
+ALTER TABLE `submissions`
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `assigned_projects`
+--
+ALTER TABLE `assigned_projects`
+  ADD CONSTRAINT `project_id_fk23` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `researcher_id_fk2` FOREIGN KEY (`researcher_id`) REFERENCES `researcher` (`researcher_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `manager`
@@ -329,6 +407,13 @@ ALTER TABLE `project_description`
 --
 ALTER TABLE `researcher`
   ADD CONSTRAINT `role_id_fk2` FOREIGN KEY (`role_id`) REFERENCES `employee_role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `submissions`
+--
+ALTER TABLE `submissions`
+  ADD CONSTRAINT `project_id_fk233` FOREIGN KEY (`project_id`) REFERENCES `assigned_projects` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `researcher_id_fk3` FOREIGN KEY (`researcher_id`) REFERENCES `assigned_projects` (`researcher_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
